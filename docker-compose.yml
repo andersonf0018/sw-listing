@@ -1,0 +1,72 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    volumes:
+      - ./api:/var/www
+      - /var/www/vendor
+      - /var/www/node_modules
+    ports:
+      - "9000:9000"
+    depends_on:
+      - database
+    environment:
+      - DB_CONNECTION=mysql
+      - DB_HOST=database
+      - DB_PORT=3306
+      - DB_DATABASE=lawnstarter
+      - DB_USERNAME=lawnstarter
+      - DB_PASSWORD=password
+      - QUEUE_CONNECTION=database
+    networks:
+      - app-network
+
+  frontend:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - ./app:/app
+      - /app/node_modules
+      - /app/.next
+    ports:
+      - "3000:3000"
+    networks:
+      - app-network
+
+  database:
+    image: mysql:8.0
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_DATABASE=lawnstarter
+      - MYSQL_USER=lawnstarter
+      - MYSQL_PASSWORD=password
+      - MYSQL_ROOT_PASSWORD=root_password
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - app-network
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - "8080:80"
+    environment:
+      - PMA_HOST=database
+      - PMA_PORT=3306
+    depends_on:
+      - database
+    networks:
+      - app-network
+
+networks:
+  app-network:
+
+volumes:
+  db_data:
