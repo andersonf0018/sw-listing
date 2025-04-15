@@ -12,6 +12,7 @@ A full-stack application for exploring the Star Wars universe, built with Next.j
 ## Tech Stack
 
 ### Frontend
+
 - **Next.js 15** - React framework
 - **React 19** - UI library
 - **TailwindCSS** - Styling
@@ -20,6 +21,7 @@ A full-stack application for exploring the Star Wars universe, built with Next.j
 - **Jest & React Testing Library** - Testing
 
 ### Backend
+
 - **Laravel** - PHP framework
 - **MySQL** - Database
 - **Docker** - Containerization
@@ -31,6 +33,7 @@ You can see a more detailed README about each project inside the `app` and `api`
 ## Getting Started
 
 ### Prerequisites
+
 - Docker and Docker Compose
 - Node.js (v18+)
 - npm or yarn
@@ -38,11 +41,14 @@ You can see a more detailed README about each project inside the `app` and `api`
 ### Installation
 
 1. Start the Docker containers:
+
 ```bash
 docker-compose up -d
 ```
 
-2. The application will be available at:
+2. Set the database credentials on `api/.env`. You can see the default database credentials on `docker-compose.yml`
+
+3. The application will be available at:
    - Frontend: http://localhost:3000
    - Backend API: http://localhost:9000
    - PHPMyAdmin: http://localhost:8080
@@ -70,6 +76,7 @@ docker-compose exec backend php artisan <command>
 ### Running Tests
 
 Frontend tests:
+
 ```bash
 cd app
 npm run test
@@ -100,6 +107,7 @@ lawnstarter/
 ## Analytics
 
 The application tracks user interactions, including:
+
 - Search queries
 - Detail page views
 - API response times
